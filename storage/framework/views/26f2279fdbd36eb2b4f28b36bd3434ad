@@ -1,0 +1,127 @@
+<?php $__env->startSection('content'); ?>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header"><?php echo e($examination->title); ?>
+
+					<small>details</small>
+				</h1>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-8">
+					<?php if($examination): ?>
+                        <?php if(Session::has('message')): ?>
+                            <div class="alert alert-dismissible alert-success">
+                                <button type="button" class="close" data-dismiss="alert">X</button>
+                                <?php echo Session::get('message'); ?>
+
+                            </div>
+                        <?php endif; ?>
+						<?php if($errors->any()): ?>
+							<div class="alert alert-danger">
+								<?php foreach($errors->all() as $error): ?>
+									<li><?php echo e($error); ?></li>
+								<?php endforeach; ?>
+							</div>
+						<?php endif; ?>
+                            <div class="col-lg-12">
+                                <?php if($examination->hasBeenWritten): ?>
+                                    <p class="text-info">Examination has been taken by some students and therefore
+                                        cannot be edited.</p>
+                                <?php endif; ?>
+                                <?php if( $examination->status == 'inactive'): ?>
+                                    <p class="text-info">This examination has ended but you can click on 'Set Exam' to re-set the exam.</p>
+                                <?php elseif( $examination->status == 'active'): ?>
+                                    <p class="text-info">Examination cannot be edited when it is set for writing.</p>
+                                <?php endif; ?>
+
+                            </div>
+						<table class="table">
+							<tr>
+								<td>Number of questions Uploaded</td>
+								<td><?php echo e(count($examination->questions)); ?></td>
+							</tr>
+							<tr>
+								<td>Number of eligible candidates</td>
+								<td><?php echo e(count($examination->examinationUsers)); ?></td>
+							</tr>
+						</table>
+
+
+    					<div class="col-md-12">
+							<div class="col-md-6">
+								<?php if($examination->status == 'created' || $examination->status == 'inactive'): ?>
+									<div class="col-lg-4">
+                                        <?php echo HTML::link('admin/exams/' . $examination->id . '/set', 'Set Exam', ['class' => 'btn btn-warning']); ?>
+
+                                    </div>
+                                <?php endif; ?>
+                                <?php if($examination->status == 'created'): ?>
+										<div class="col-lg-4">
+											<?php echo Form::open(array('url' => '/admin/exams/' . $examination->id)); ?>
+
+											<?php echo Form::hidden('_method', 'DELETE'); ?>
+
+											<?php echo Form::submit('Delete', ['class' => 'btn btn-danger','onClick' => 'return confirm("Sure you want to delete this examination?")']); ?>
+
+											<?php echo Form::close(); ?>
+
+										</div>
+    									<div class="col-lg-4">
+											<?php echo HTML::link('admin/exams/' . $examination->id . '/edit', 'Edit', ['class' => 'btn btn-primary']); ?>
+
+										</div>
+									<?php endif; ?>
+								</div>
+								<div class="col-lg-6">
+									<div class="col-lg-6">
+										<?php echo HTML::link('admin/exams/' . $examination->id . '/questions', 'View Questions', ['class' => 'btn btn-primary']); ?>
+
+									</div>
+                                    <div class="col-lg-6">
+                                        <?php echo HTML::link('admin/exams/' . $examination->id . '/class', 'Candidates', ['class' => 'btn btn-success']); ?>
+
+                                    </div>
+							</div>
+								<?php if($examination->status == 'active'): ?>
+									<div class="col-lg-12" style="float:right">
+										<?php echo Form::open(array('url' => '/admin/exams/' . $examination->id . '/end', 'class' => 'form-inline')); ?>
+
+										<?php echo Form::hidden('_method', 'PATCH'); ?>
+
+										<?php echo Form::hidden('status', "archived"); ?>
+
+										<?php echo Form::submit('End Examination', ['class' => 'btn btn-success', 'onClick' => 'return confirm("Sure you want to end this examination?")']); ?>
+
+										<?php echo Form::close(); ?>
+
+									</div>
+								<?php endif; ?>
+
+						</div>
+                            <div class="col-span-8" >
+                                <?php if($examination->hasBeenWritten): ?>
+                                    <div class="form-group">
+                                        <div class="col-md-12" style="padding-top: 15px;">
+                                            <?php echo HTML::link(action('AdminExaminationsController@downloadResultSheet', [$examination->id]), 'Download Results Sheet',  ['class' => 'btn btn-primary form-control']); ?>
+
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('scripts'); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

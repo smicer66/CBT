@@ -1,0 +1,83 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<?php /*<?php echo HTML::style('css/questionstemplate.css'); ?>*/ ?>
+<table>
+	<tbody>
+	<tr>
+		<td class="first">&nbsp;</td>
+		<td colspan="3"><h1><?php echo e($examination->title); ?> result sheet</h1></td>
+	</tr>
+    <tr>
+        <td class="first">&nbsp;</td>
+        <td colspan="1">Maximum Score</td>
+        <td><h1><?php echo e($examination->maximum_score); ?> Marks</h1></td>
+    </tr>
+	<tr class="info">
+		<td class="first">&nbsp;</td>
+		<td colspan="1">Institution</td>
+		<td><?php echo env('INSTITUTION_NAME'); ?></td>
+	</tr>
+	<tr class="info">
+		<td class="first">&nbsp;</td>
+		<td colspan="1">Course</td>
+		<td><?php echo $course->title; ?></td>
+	</tr>
+
+	<tr>
+		<td  class="first" colspan="3" bgcolor="red">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="first">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="first">&nbsp;</td>
+	</tr>
+
+	<tr class="header">
+		<td class="first"><b>s/n</b></td>
+		<td><b>Identity Number</b></td>
+		<td><b>First Name</b></td>
+		<td><b>Last Name</b></td>
+		<td><b>Score</b></td>
+	</tr>
+	<?php $i = 1; ?>
+
+	<?php foreach($candidates as $candidate): ?>
+        <?php
+        $usr = DB::table('users')->where('id', '=', $candidate->user_id)->first();
+        //dd($usr);
+        ?>
+
+		<tr>
+			<td class="first"><?php echo e($i); ?></td>
+			<td><?php echo e($usr->identity_no); ?></td>
+			<td><?php echo e($usr->first_name); ?></td>
+			<td><?php echo e($usr->last_name); ?></td>
+			<td>
+				<?php if($candidate->result): ?>
+					<?php echo e($candidate->result); ?>
+
+				<?php else: ?>
+					No result
+				<?php endif; ?>
+			</td>
+            <?php if($candidate->user->user_department): ?>
+                <td><?php echo e($candidate->user->user_department->name); ?></td>
+            <?php else: ?>
+                <td>&nbsp;</td>
+            <?php endif; ?>
+<?php /*           <?php echo e(dd($candidate->user->user_department)); ?>*/ ?>
+            <?php if($candidate->user->user_department): ?>
+                <?php if($candidate->user->user_department->has('faculty')): ?>
+                    <td><?php echo e($candidate->user->user_department->faculty->name); ?></td>
+                <?php else: ?>
+                    <td>&nbsp;</td>
+                <?php endif; ?>
+            <?php endif; ?>
+		</tr>
+
+		<?php $i++; ?>
+	<?php endforeach; ?>
+	</tbody>
+</table>
+</html>

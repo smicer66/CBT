@@ -1,0 +1,131 @@
+<?php $__env->startSection('content'); ?>
+
+
+
+
+        <div class="container-fluid">
+	        <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Step Two: Create Examination - Provide Examination Details</h1>
+                </div>
+		        <!-- /.col-lg-12 -->
+	        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php if($errors->any()): ?>
+                        <div class="alert alert-danger">
+	                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+	                        <ul>
+		                        <?php foreach($errors->all() as $error): ?>
+			                        <li><?php echo e($error); ?></li>
+		                        <?php endforeach; ?>
+	                        </ul>
+                        </div>
+                    <?php endif; ?>
+
+
+
+                    <div class="dataTable_wrapper">
+                        <?php echo Form::open(['route' => 'admin.exams.store']); ?>
+
+
+                        <!--  Form Input field -->
+						
+						
+						<div class="form-group">
+                            <?php echo Form::label('course_id', 'Class'); ?>: <?php echo e($className); ?>
+
+                        </div>
+						
+						
+						
+						
+                        <div class="form-group">
+                            <?php echo Form::label('course_id', 'Subject'); ?>
+
+
+                            <?php echo Form::select('course_id', $courses , null , ['class' => 'form-control']); ?>
+
+                        </div>
+
+                        <!-- Title Form Input field -->
+                        <div class="form-group">
+                            <?php echo Form::label('title', 'Title:'); ?>
+
+                            <?php echo Form::text('title', null, ['class' => 'form-control']); ?>
+
+                        </div>
+                        <!--  Form Input field -->
+                        <?php /*<div class="form-group">*/ ?>
+                            <?php /*<?php echo Form::label('no_of_questions', 'Number of questions'); ?>*/ ?>
+                            <?php /*<?php echo Form::input('number','no_of_questions', null, ['class' => 'form-control', 'min' => 1, 'max' => 10000]); ?>*/ ?>
+                            <?php /*<span class="help-block">Specify the number of questions you want students to answer</span>*/ ?>
+                        <?php /*</div>*/ ?>
+                        <?php /*<div class="form-group">*/ ?>
+                            <?php /*<div class="checkbox">*/ ?>
+	                            <?php /*<label>*/ ?>
+		                            <?php /*<?php echo Form::checkbox('score_weight_type', 1, null, ['id' => 'checkScoreType']); ?>*/ ?>
+		                            <?php /*All questions have equal score*/ ?>
+	                            <?php /*</label>*/ ?>
+                            <?php /*</div>*/ ?>
+                        <?php /*</div>*/ ?>
+                        <?php /*<div class="form-group">*/ ?>
+                            <?php /*<?php echo Form::input('number', 'question_score_weight', null,['placeholder' => 'Question Score weight', 'class' => 'pull-right form-control', 'id' => 'scoreWeight', 'min' => 0, 'max' => 10000, 'disabled']); ?>*/ ?>
+                            <?php /*<span class="help-block">If all questions have same score, type the score here.</span>*/ ?>
+                        <?php /*</div>*/ ?>
+                        <?php /*<div class="form-group">*/ ?>
+                            <?php /*<?php echo Form::label('duration', 'Duration of Examination'); ?>*/ ?>
+                            <?php /*<div class="input-group">*/ ?>
+	                            <?php /*<?php echo Form::input('number', 'duration', 'Duration', ['class' => 'form-control', 'min' => 0, 'max' => 14400]); ?>*/ ?>
+	                            <?php /*<span class="input-group-addon">minutes</span>*/ ?>
+                            <?php /*</div>*/ ?>
+                            <?php /*<span class="help-block">Time allowed for the exam </span>*/ ?>
+                        <?php /*</div>*/ ?>
+
+
+                        <div class="form-group">
+                            <?php echo Form::label('instructions', 'Examination Instructions'); ?>
+
+                            <?php echo Form::textarea('instructions', null, ['class' => 'form-control']); ?>
+
+                        </div>
+
+                        <?php /*<div class="form-group">*/ ?>
+                            <?php /*<?php echo Form::label('exam_date', 'Examination Date'); ?>*/ ?>
+                            <?php /*<?php echo Form::input('date','exam_date', null, ['class' => 'form-control']); ?>*/ ?>
+                        <?php /*</div>*/ ?>
+
+                        <div class="form-group pull-right">
+                            <?php echo Form::button('Next <i class="fa fa-arrow-right"></i>', ['class' => 'btn btn-success', 'type' => 'submit']); ?>
+
+                        </div>
+						<input type="hidden" name="class_id" value="<?php echo e($class_id); ?>" />
+						<input type="hidden" name="class_arm_id" value="<?php echo e($class_arm_id); ?>" />
+                        <?php echo Form::close(); ?>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
+
+
+	<script>
+		<?php if(old('score_weight_type')): ?>
+			var scoreType = $('#checkScoreType');
+			$('document').ready(function() {
+				$('#scoreWeight').attr('disabled', false);
+			});
+		<?php endif; ?>
+		$('#checkScoreType').change(function() {
+			$('#scoreWeight').attr('disabled',!this.checked);
+		});
+		$('button').on('click', function(){
+			$('form').submit();
+			$('button').attr('disabled', true);
+		});
+	</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,86 @@
+<?php $__env->startSection('content'); ?>
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <h1 class="page-header">
+                    <?php if(isset($faculty)): ?>
+                        <?php echo "Create a new Department in the faculty of ".$faculty->name; ?>
+
+                    <?php else: ?>
+                        <?php echo "Create a new Department"; ?>
+
+                    <?php endif; ?>
+                </h1>
+
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="container-fluid">
+
+            <div class="row">
+                <?php if(Session::has('message')): ?>
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="close" data-dismiss="alert">X</button>
+                        <?php echo e(Session::get('message')); ?>
+
+                    </div>
+                <?php endif; ?>
+                <?php if($errors->any()): ?>
+                    <ul class="alert alert-danger">
+                        <?php foreach($errors->all() as $error): ?>
+                            <li> <?php echo e($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+                <div class="col-sm-12">
+                    <?php echo Form::open(['url' => 'admin/departments','class' => 'form']); ?>
+
+                    <div class="form-group col-md-6">
+                        <?php echo Form::label('name', "Name of Department" . ':'); ?>
+
+                        <?php echo Form::text('name',Input::old('name'), array('class' => 'form-control')); ?>
+
+                    </div>
+                    <div class="clearfix"></div>
+                    <?php if(isset($faculty)){ ?>
+                        <?php echo Form::hidden('faculty_id',$faculty->id); ?>
+
+                        <?php echo Form::hidden('redirect_manage',"true"); ?>
+
+                    <?php }
+                    else { ?>
+                    <div class="form-group col-md-6" style="width: 300px;">
+                    <?php echo Form::label('faculty_id', "This Department's Faculty" . ':'); ?>
+
+                    <?php echo Form::select('faculty_id',$faculties,null, array('class' => 'form-control')); ?>
+
+                    </div>
+                    <?php }
+                    ?>
+                    <div class="clearfix"></div>
+                    <div class="form-group col-md-6">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group col-md-6">
+                        <div class="pull-left">
+                            <?php echo Form::submit("Save",array('class' => 'btn btn-primary','onClick' => 'this.form.submit(); this.disabled=true; this.value=\'Saving\'')); ?>
+
+                        </div>
+                        <div class="pull-right">
+                            <a class="btn btn-danger" href="javascript:history.back('-1')"><?php echo "Cancel"; ?></a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <?php echo Form::close(); ?>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

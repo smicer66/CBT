@@ -1,0 +1,107 @@
+<?php $__env->startSection('content'); ?>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Dashboard</h1>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+		<!-- /.row -->
+		<div class="row">
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-green">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-tasks fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge"><?php echo e(count($examinations)); ?></div>
+								<div>Active Examinations</div>
+							</div>
+						</div>
+					</div>
+					<a href="<?php echo e(action('AdminExaminationsController@index')); ?>">
+						<div class="panel-footer">
+							<span class="pull-left">View Examinations</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<!--<div class="col-lg-3 col-md-6">
+				<div class="panel panel-green">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-desktop fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge"><?php echo e(count($students)); ?></div>
+								<div>Logged In students</div>
+							</div>
+						</div>
+					</div>
+					<!--<a href="#">
+						<div class="panel-footer">
+							<span class="pull-left">Logged In Users</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					<!--</a>
+				</div>-->
+			</div>
+			<?php /*<div class="col-lg-3 col-md-6">*/ ?>
+				<?php /*<div class="panel panel-yellow">*/ ?>
+					<?php /*<div class="panel-heading">*/ ?>
+						<?php /*<div class="row">*/ ?>
+							<?php /*<div class="col-xs-3">*/ ?>
+								<?php /*<i class="fa fa-shopping-cart fa-5x"></i>*/ ?>
+							<?php /*</div>*/ ?>
+							<?php /*<div class="col-xs-9 text-right">*/ ?>
+								<?php /*<div class="huge">124</div>*/ ?>
+								<?php /*<div>New Orders!</div>*/ ?>
+							<?php /*</div>*/ ?>
+						<?php /*</div>*/ ?>
+					<?php /*</div>*/ ?>
+					<?php /*<a href="#">*/ ?>
+						<?php /*<div class="panel-footer">*/ ?>
+							<?php /*<span class="pull-left">View Details</span>*/ ?>
+							<?php /*<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>*/ ?>
+							<?php /*<div class="clearfix"></div>*/ ?>
+						<?php /*</div>*/ ?>
+					<?php /*</a>*/ ?>
+				<?php /*</div>*/ ?>
+			<?php /*</div>*/ ?>
+			<?php /*<div class="col-lg-3 col-md-6">*/ ?>
+				<?php /*<div class="panel panel-red">*/ ?>
+					<?php /*<div class="panel-heading">*/ ?>
+						<?php /*<div class="row">*/ ?>
+							<?php /*<div class="col-xs-3">*/ ?>
+								<?php /*<i class="fa fa-support fa-5x"></i>*/ ?>
+							<?php /*</div>*/ ?>
+							<?php /*<div class="col-xs-9 text-right">*/ ?>
+								<?php /*<div class="huge">13</div>*/ ?>
+								<?php /*<div>Support Tickets!</div>*/ ?>
+							<?php /*</div>*/ ?>
+						<?php /*</div>*/ ?>
+					<?php /*</div>*/ ?>
+					<?php /*<a href="#">*/ ?>
+						<?php /*<div class="panel-footer">*/ ?>
+							<?php /*<span class="pull-left">View Details</span>*/ ?>
+							<?php /*<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>*/ ?>
+							<?php /*<div class="clearfix"></div>*/ ?>
+						<?php /*</div>*/ ?>
+					<?php /*</a>*/ ?>
+				<?php /*</div>*/ ?>
+			<?php /*</div>*/ ?>
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

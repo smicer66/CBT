@@ -1,0 +1,100 @@
+<?php $__env->startSection('content'); ?>
+    <div id="page-wrapper">
+
+        <div class="container">
+            <div class="row text-center">
+                <h1>Welcome, <?php echo e(\Auth::user()->first_name); ?>!</h1>
+                <hr/>
+                <div class="alert alert-dismissible alert-warning text-center">
+                    <button type="button" class="close" data-dismiss="alert">X</button>
+                    <h4>Please Confirm that your name and identity number are correct. Contact the administrator if they are not.</h4>
+                </div>
+                <h4><b>Name:</b> <?php echo e(\Auth::user()->first_name." ". \Auth::user()->last_name); ?></h4>
+                <h4><b>Identity Number:</b> <?php echo e(\Auth::user()->identity_no); ?></h4>
+                </div>
+            </div>
+
+            <div class="row">
+	            <?php if(Session::has('message')): ?>
+		            <div class="alert alert-dismissible alert-success">
+			            <button type="button" class="close" data-dismiss="alert">X</button>
+			            <?php echo e(Session::get('message')); ?>
+
+		            </div>
+	            <?php endif; ?>
+	            <?php if($errors->any()): ?>
+		            <ul class="alert alert-danger">
+			            <?php foreach($errors->all() as $error): ?>
+				            <li> <?php echo e($error); ?></li>
+			            <?php endforeach; ?>
+		            </ul>
+	            <?php endif; ?>
+            </div>
+            <div class="row">
+	            <div class="container">
+                    <h1 class="page-header text-center">Examinations available</h1>
+                    <div class="panel panel-default">
+		            <?php if(isset($examinations) and $examinations->count()>0 ): ?>
+			            <div class="table-responsive">
+				            <table class="table">
+					            <thead>
+					            <tr>
+						            <th><?php echo "Name"; ?> <a href="#" name="created_at" class="order"></a></th>
+						            <th><?php echo "Course"; ?> <a href="#" name="created_at" class="order"></a></th>
+						            <th><?php echo "Exam Date"; ?> <a href="#" name="created_at" class="order"></a></th>
+						            <th><?php echo "Exam Duration (Minutes)"; ?> <a href="#" name="created_at" class="order"></a></th>
+						            <th><?php echo "Result"; ?> <a href="#" name="created_at" class="order"></a></th>
+					            </tr>
+					            </thead>
+					            <tbody>
+					            <?php foreach($examinations as $examination_user): ?>
+							            <tr>
+								            <td><?php echo $examination_user->title; ?></td>
+								            <td> <?php echo $examination_user->course->title; ?></td>
+								            <td> <?php echo $examination_user->exam_date; ?></td>
+								            <td> <?php echo $examination_user->duration; ?></td>
+								            <?php $settings = $examination_user->settings->where('key',
+										            'DISPLAY_RESULTS')->first();?>
+								            <td>
+											<?php
+											$totalScore = 100;
+											
+											if(array_key_exists($examination_user->id, $q2))
+											{
+												$totalScore = $q2[$examination_user->id];
+											}
+											$e1 = NULL;
+											if(array_key_exists($examination_user->id, $exam_ids))
+											{
+												$e1 = $exam_ids[$examination_user->id];
+											}
+											
+											$e4 = $examination_user->settings->where('key','DISPLAY_RESULTS');
+											?>
+									            &nbsp;<?php echo ($e4->count()>0 &&  $e1!=NULL && isset($e1->result)) ? $e1->result." of ".($totalScore). ' marks':'N/A'; ?></td>
+								            <td colspan="2"><?php echo $e1!=NULL && !isset($e1->result ) && $examination_user->duration > 0 ? link_to_route('client.examinations.confirm',"Take Exam", [$e1!=NULL ? $examination_user->id : 0], ['class' => 'btn btn-success']) : '&nbsp;'; ?></td>
+								            <?php if($e1!=NULL && $e1->isActive): ?>
+									            <td colspan="2">In Progress</td>
+											<?php endif; ?>
+
+							            </tr>
+					            <?php endforeach; ?>
+					            </tbody>
+				            </table>
+                        </div>
+		            <?php else: ?>
+			            <?php echo "There are currently no active examinations for you at this time"; ?>
+
+		            <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('scripts'); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

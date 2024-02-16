@@ -1,0 +1,108 @@
+<?php $__env->startSection('content'); ?>
+
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header"><?php echo e($examination->title); ?>
+
+						<br />
+						<small class="text-muted">Upload Questions</small>
+					</h1>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<div class="row">
+				<div class="col-lg-10 col-lg-offset-1">
+					<?php if($errors->any()): ?>
+						<div class="alert alert-danger">
+							<strong>Whoops!</strong> The file you uploaded is not in the valid
+							format<br><br>
+							<ul>
+								<?php foreach($errors->all() as $error): ?>
+									<li><?php echo e($error); ?></li>
+								<?php endforeach; ?>
+							</ul>
+						</div>
+					<?php endif; ?>
+					<?php if(! $examination->isActive): ?>
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h3>Instructions</h3>
+								</div>
+								<div class="panel-body">
+									<ol>
+										<li class="text-info">Download the template for this examination by clicking the
+											link
+											below.
+										</li>
+										<li class="text-info">Fill out the template.</li>
+										<li class="text-info">Upload the template on this page when you are done.</li>
+										<li class="text-info">You can find a link to this page anytime when you view
+											details of
+											an examination.
+										</li>
+									</ol>
+								</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<nav>
+									<ul class="nav nav-pills">
+										<li><a href="<?php echo e(url('/admin/exams/' . $examination->id . '/template')); ?>"><i
+														class="fa fa-download"></i> Click here to download questions
+												template</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<div class="dataTable_wrapper">
+							<?php echo Form::open(['action' => 'QuestionsController@store', 'method' => 'post', 'files' => true, 'role' => 'form']); ?>
+
+							<!--  Form Input field -->
+							<div class="form-group">
+								<?php echo Form::label('questions', 'Upload Questions'); ?>
+
+								<?php echo Form::file('questions', ['class' => 'form-control']); ?>
+
+								<span class="help-block">Upload the completed question template.</span>
+								<span class="help-block text-danger">The previous questions will be overwritten.</span>
+							</div>
+							<?php echo Form::hidden('examination_id', $examination->id); ?>
+
+							<div class="form-group pull-right">
+								<?php echo Form::button('upload <i class="fa fa-upload"></i>', ['class' => 'btn btn-primary', 'type' => 'submit']); ?>
+
+							</div>
+							<?php echo Form::close(); ?>
+
+						</div>
+					<?php else: ?>
+						<p class="text-info">Questions cannot be uploaded when an examination is set to be taken or has
+							been taken.</p>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
+
+
+	<script>
+		<?php if(old('score_weight_type')): ?>
+		var scoreType = $('#checkScoreType');
+		$('document').ready(function () {
+			$('#scoreWeight').attr('disabled', false);
+		});
+		<?php endif; ?>
+		$('#checkScoreType').change(function () {
+					$('#scoreWeight').attr('disabled', !this.checked);
+				});
+		$('button').on('click', function () {
+			$('form').submit();
+			$('button').attr('disabled', true);
+		});
+	</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

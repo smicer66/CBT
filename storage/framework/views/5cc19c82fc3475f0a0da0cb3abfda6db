@@ -1,0 +1,8 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <?php echo $__env->make('partials.navbar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php if(Auth::user() and \Request::route()->uri() != 'client/examinations/{examinations}' && Auth::user()->isStaff()): ?>
+        <?php echo $__env->make('partials.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php endif; ?>
+
+</nav>

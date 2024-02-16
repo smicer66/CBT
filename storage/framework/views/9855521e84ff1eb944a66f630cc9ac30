@@ -1,0 +1,86 @@
+<?php $__env->startSection('content'); ?>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">View/Edit A Subject</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="container-fluid">
+
+            <div class="row">
+                <?php if(Session::has('message')): ?>
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="close" data-dismiss="alert">X</button>
+                        <?php echo e(Session::get('message')); ?>
+
+                    </div>
+                <?php endif; ?>
+                <?php if($errors->any()): ?>
+                    <ul class="alert alert-danger">
+                        <?php foreach($errors->all() as $error): ?>
+                            <li> <?php echo e($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+                <div class="row">
+                    <div class="clearfix"></div>
+                    <div class="col-md-6">
+                            <?php echo Form::model($course, array('method' => 'PUT','route' => array('admin.courses.update',$course->id))); ?>
+
+
+                            <div class="form-group">
+                                <?php echo Form::label('title', "Title of Course" . ':'); ?>
+
+                                <?php echo Form::text('title',$course->title, array('class' => 'form-control')); ?>
+
+                            </div>
+
+
+
+
+
+                            <?php /*<!--  Form Input field -->*/ ?>
+                            <?php /*<div class="form-group">*/ ?>
+                                <?php /*<?php echo Form::label('course_material122', 'Any Previously Uploaded Course Material:'); ?>*/ ?>
+                                <?php /*<?php echo $course->course_material != null ? HTML::link('/uploads/course_materials/'.$course->course_material,"Uploaded Course Material",[]) : "None"; ?>*/ ?>
+
+                            <?php /*</div>*/ ?>
+
+
+
+                            
+
+
+                            <div class="form-group">
+                            </div>
+                            <div class="form-group">
+                                <div class="pull-left">
+                                    <?php echo Form::submit("Save",array('class' => 'btn btn-primary')); ?>
+
+                                </div>
+                                <div class="pull-right">
+                                    <a class="btn btn-danger" href="javascript:history.back('-1')"><?php echo "Cancel"; ?></a>
+                                </div>
+                            </div>
+                            <?php /*<div class="clearfix"></div>*/ ?>
+                            <?php echo Form::close(); ?>
+
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php $__env->stopSection(); ?>
+
+        <?php $__env->startSection('scripts'); ?>
+            <script>
+                $(document).ready(function() {
+                    $('#dataTables-example').DataTable({
+                        responsive: true
+                    });
+                });
+            </script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

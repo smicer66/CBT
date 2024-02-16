@@ -1,0 +1,26 @@
+</div>
+<!-- Body Wrapper /-->
+
+@yield('scripts')
+
+<script>
+	$('#editModal').on('show.bs.modal', function () {
+		$(this).removeData();
+	});
+
+    document.onkeydown = function(e) {
+        if((e.which == 37 || e.which == 39) && window.prevKey == 18) {
+            return false;
+        }
+        else if(e.which == 18) {
+            window.prevKey = e.which;
+        }
+        else {
+
+        }
+    }
+
+</script>
+</body>
+
+</html>

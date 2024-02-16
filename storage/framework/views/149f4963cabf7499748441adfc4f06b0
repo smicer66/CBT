@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><?php echo env('APP_NAME', 'CBT'); ?></title>
+
+    <!-- Bootstrap Core CSS -->
+    <?php echo HTML::style('/bower_components/bootstrap/dist/css/bootstrap.min.css'); ?>
+
+<?php /*    <?php echo HTML::style('/css/bootstrap.css'); ?>*/ ?>
+
+    <!-- MetisMenu CSS -->
+    <?php echo HTML::style('/bower_components/metisMenu/dist/metisMenu.min.css'); ?>
+
+
+
+    <?php echo HTML::style('/bower_components/datatables/media/css/jquery.dataTables.min.css'); ?>
+
+
+
+    <!-- Custom CSS -->
+    <?php echo HTML::style('/css/sb-admin-2.css'); ?>
+
+
+    <!-- Custom Fonts -->
+    <?php echo HTML::style('/bower_components/font-awesome/css/font-awesome.min.css'); ?>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+	<!-- jQuery -->
+	<?php echo HTML::script('/bower_components/jquery/dist/jquery.min.js'); ?>
+
+
+	<!-- Bootstrap Core JavaScript -->
+	<?php echo HTML::script('/bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>
+
+
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<?php echo HTML::script('/bower_components/metisMenu/dist/metisMenu.min.js'); ?>
+
+
+    <!-- Datatables -->
+	<?php echo HTML::script('/bower_components/datatables/media/js/jquery.datatables.min.js'); ?>
+
+<?php /*	<?php echo HTML::script('/bower_components/metisMenu/dist/metisMenu.min.js'); ?>*/ ?>
+
+	<!-- Custom Theme JavaScript -->
+	<?php echo HTML::script('/js/sb-admin-2.js'); ?>
+
+	<?php echo HTML::script('/js/jquery.countdown.min.js'); ?>
+
+	<?php echo HTML::script('/js/moment.js'); ?>
+
+	<?php echo HTML::script('/js/bootpag.min.js'); ?>
+
+    <?php if(Auth::user()): ?>
+        <?php if(Auth::user()->isStudent()): ?>
+            <style>
+                @media(min-width:768px) {
+                    #page-wrapper {
+                        position: inherit;
+                        margin: 0 0 0 0;
+                        padding: 0 30px;
+                    }
+                }
+            </style>
+        <?php endif; ?>
+    <?php endif; ?>
+	<?php echo $__env->yieldContent('head'); ?>
+</head>
+<?php /* oncontextmenu="return false;"*/ ?>
+<body>
+<!-- Page Wrapper -->
+<div id="wrapper" class="login-wrapper">
+
+<?php echo $__env->make('partials.flash', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

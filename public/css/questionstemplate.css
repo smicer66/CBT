@@ -1,0 +1,20 @@
+
+td {
+    width: 200px;
+}
+.first {
+    width:  200px;
+}
+.info {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.header {
+    background-color: #cccccc;
+}
+
+.text {
+    mso-number-format: "\@"; /*force text*/
+}
+
