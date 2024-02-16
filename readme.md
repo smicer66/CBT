@@ -4,7 +4,7 @@ CBT is an application provided to the Zambian community as an elearning platform
 
 ## Technical Details
 
-The HandyMate web application is developed using Laravel a PHP framework
+The CBT web application is developed using Laravel a PHP framework
  
 ## Install PHP
 Before proceeding, make sure your computer has PHP installed. See these instructions to set up the project dependencies.
